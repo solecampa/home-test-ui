@@ -15,6 +15,7 @@ services:
       - app
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
 
       - BASE_URL=http://host.docker.internal:3100
