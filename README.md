@@ -19,10 +19,11 @@ Follow these steps to get the code, set up the environment, and run the tests.
 
 #### 1\. Get the Repository
 
-Clone this repository to your local machine using Git:
+Clone this repository to your local machine using Git, move 2 folders forward
 
 ```bash
 git clone https://github.com/solecampa/home-test-ui.git
+cd home-test-ui
 cd home-test-ui
 ```
 
@@ -36,7 +37,7 @@ The solution uses Docker Compose to orchestrate the demo application and the tes
 Run the following command from the project's root directory to start everything:
 
 ```bash
-docker compose up
+docker compose build
 ```
 
 **Note**: The `docker compose up` command will run the tests and keep the containers running.
