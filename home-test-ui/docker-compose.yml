@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # -----------------------------------------------------
+  # 1. Web Application Service
+  # -----------------------------------------------------
+  app:
+    image: automaticbytes/demo-app
+    # Expone el puerto 3100 para acceso local (http://localhost:3100)
+    ports:
+      - "3100:3100"
+    container_name: demo-app
+
+  # -----------------------------------------------------
+  # 2. Playwright Test Runner Service
+  # -----------------------------------------------------
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Indica que 'app' debe estar corriendo antes de intentar iniciar 'tests'
+    depends_on:
+      - app
+    volumes:
+      # Monta el código local en el contenedor para que Playwright lo use
+      - .:/usr/src/app
+    environment:
+      # BASE_URL usa el nombre del servicio 'app' y el puerto interno
+      - BASE_URL=http://app:3100
+    container_name: home-test
+    # Ejecuta npm install, espera a que el servicio 'app' esté UP, y luego ejecuta los tests
+    command: >
+      /bin/sh -c "
+      npm install &&
+      echo '--- Waiting for the app service (http://app:3100) to be ready... ---' &&
+      # Usa wget para intentar conectar 5 veces con un timeout. El bucle es más robusto.
+      /bin/bash -c 'while ! wget -q --timeout=1 --tries=1 http://app:3100; do 
+        echo 'App not yet available, waiting 5 seconds...'; 
+        sleep 5; 
+      done' &&
+      echo '--- App is ready. Running Playwright tests. ---' &&
+      npx playwright test --project=chromium --project=firefox --project=webkit --retries=2
+      "
