@@ -22,7 +22,7 @@ Follow these steps to get the code, set up the environment, and run the tests.
 Clone this repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/your-username/home-test.git
+git clone https://github.com/solecampa/home-test-ui.git
 cd home-test-ui
 ```
 
