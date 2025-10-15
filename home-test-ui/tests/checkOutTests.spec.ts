@@ -30,13 +30,12 @@ test.describe('Checkout Form Tests', () => {
 
     test('Checkout Form Order Success', async ({ page }) => {
         await checkoutPage.fillForm(formData);
-
-       if(await checkoutPage.shippingCheckbox.isChecked()){
-           orderPage = await checkoutPage.submit();
-       }else{
-           await checkoutPage.shippingCheckbox.check();
-            
-       }
+        if(await checkoutPage.shippingCheckbox.isChecked()){
+            orderPage = await checkoutPage.submit();
+        }else{
+            await checkoutPage.shippingCheckbox.check();
+            orderPage = await checkoutPage.submit();
+        }
         expect(await orderPage.getOrderConfirmationNumber()).not.toBeNull();
     });
 
