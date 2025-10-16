@@ -50,6 +50,9 @@ If the application containers are already running (you can check with `docker ps
 docker compose run --rm tests
 ```
 
+### 4\. Tests can also be run from the Visual Studio Code UI
+When having the playwright plugin installed - tests can be executed by clicking in the green play button
+
 ### 📝 Test Scenarios
 
 The tests cover the following main scenarios in the demo application:

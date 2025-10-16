@@ -12,15 +12,11 @@ test.describe('Login Tests', () => {
     loginPage = new LoginPage(page);
   });
 
-  test.afterEach(async ({ page, browser }) => {
-    // Teardown: close page and browser
-    await page.close();
-  });
-
-  test.afterEach(async ({ page, browser }) => {
+  test.afterEach(async ({ page }) => {
     // Teardown: close page
     await page.close();
   });
+
 
   test('Login Success: shows welcome message', async ({ page }) => {
     const homePage = await loginPage.login(validUser.username, validUser.password);

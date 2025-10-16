@@ -30,6 +30,8 @@ test.describe('Checkout Form Tests', () => {
 
     test('Checkout Form Order Success', async ({ page }) => {
         await checkoutPage.fillForm(formData);
+
+        //Verify if checkbox is checked, if not check it then submit the form
         if(await checkoutPage.shippingCheckbox.isChecked()){
             orderPage = await checkoutPage.submit();
         }else{
@@ -41,6 +43,7 @@ test.describe('Checkout Form Tests', () => {
 
     test('Checkout Form Alert', async ({ page }) => {
         await checkoutPage.fillForm(formData);
+        // Ensure the checkbox is unchecked to trigger the alert
         if (await checkoutPage.shippingCheckbox.isChecked()) {
             await checkoutPage.shippingCheckbox.uncheck();
         }
@@ -51,8 +54,8 @@ test.describe('Checkout Form Tests', () => {
             dialogHandled = true;
         });
         await checkoutPage.submit();
-        await page.waitForTimeout(500); // Espera breve para asegurar que el dialog se maneje
-        expect(dialogHandled).toBe(true); // Opcional: asegura que el dialog fue capturado
+        await page.waitForTimeout(500); // WWait to ensure dialog is handled
+        expect(dialogHandled).toBe(true); // Optional: ensure dialog was captured
     });
 
     test('Calculate Cart Total', async () => {

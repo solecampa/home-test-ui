@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { OrderPage } from './OrderPage';
+import { FormData } from '../utils/FormData';
 
 export class CheckoutPage {
   readonly page: Page;
@@ -16,7 +17,7 @@ export class CheckoutPage {
     await this.page.goto('/checkout');
   }
 
-  async fillForm(data: { fullName: string; email: string; address: string; city: string; state: string; zip: string; nameOnCard: string; cardNumber: string; expMonth: string; expYear: string; cvv: string; shippingSameAsBilling: boolean; }) {
+  async fillForm(data: FormData) {
     await this.page.getByRole('textbox', { name: 'Full Name' }).fill(data.fullName);
     await this.page.getByRole('textbox', { name: 'Email' }).fill(data.email);
     await this.page.getByRole('textbox', { name: 'Address' }).fill(data.address);
